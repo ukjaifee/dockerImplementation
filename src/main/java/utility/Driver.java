@@ -18,17 +18,16 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import static docker.StartDocker.*;
 import static docker.StopDocker.*;
 
-
 public class Driver {
 
 	protected static WebDriver driver;
-	//protected RemoteWebDriver driver;
+	// protected RemoteWebDriver driver;
 	private DesiredCapabilities dp;
 
-    @BeforeTest
-	public  void getDriver() throws Exception {
-    
-		dp = DesiredCapabilities.chrome();
+	@BeforeTest
+	public void getDriver() throws Exception {
+
+	/*	dp = DesiredCapabilities.chrome();
 		String host = "localhost";
 
 		if (System.getProperty("Browser") != null && System.getProperty("BrowserName").equalsIgnoreCase("fireFox")) {
@@ -38,36 +37,33 @@ public class Driver {
 		if (System.getProperty("HUB_HOST") != null) {
 			host = System.getProperty("HUB_HOST");
 		}
-		ChromeOptions chromOptions= new ChromeOptions();
+		ChromeOptions chromOptions = new ChromeOptions();
 		chromOptions.merge(dp);
 		String completeURL = "http://" + host + ":4444/wd/hub";
 		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromOptions);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-	   
-	     
-	       
-	      /* WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();*/
-	
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);*/
+
+		
+		WebDriverManager.chromedriver().setup();
+		driver = new ChromeDriver();
+		 
 
 	}
-    
-   // @BeforeSuite
-    public static void dockerStart() throws Exception, Exception{
-    	startfile();
-    }
-   
-    @AfterSuite
-    public static void dockerStop() throws Exception, Exception{
-    	stopfile();
-    }
-	
 
+	@BeforeSuite
+	public static void dockerStart() throws Exception, Exception {
+		startfile();
+	}
+
+	@AfterSuite
+	public static void dockerStop() throws Exception, Exception {
+		stopfile();
+	}
 
 	public void navigateToUrl(String url) {
 		driver.get(url);
-		//driver.manage().window().maximize();
+		// driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 	}
 
