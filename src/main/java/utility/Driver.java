@@ -46,7 +46,12 @@ public class Driver {
 
 		
 		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless");
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		options.merge(capabilities);
+		driver = new ChromeDriver(options);
 		 
 
 	}
