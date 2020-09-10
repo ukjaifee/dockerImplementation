@@ -51,12 +51,12 @@ public class Driver {
 
 	}
 
-	@BeforeSuite
+	//@BeforeSuite
 	public static void dockerStart() throws Exception, Exception {
 		startfile();
 	}
 
-	@AfterSuite
+	//@AfterSuite
 	public static void dockerStop() throws Exception, Exception {
 		stopfile();
 	}
