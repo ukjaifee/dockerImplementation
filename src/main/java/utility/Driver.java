@@ -27,7 +27,7 @@ public class Driver {
 	@BeforeTest
 	public void getDriver() throws Exception {
 
-	/*	dp = DesiredCapabilities.chrome();
+		dp = DesiredCapabilities.chrome();
 		String host = "localhost";
 
 		if (System.getProperty("Browser") != null && System.getProperty("BrowserName").equalsIgnoreCase("fireFox")) {
@@ -40,28 +40,28 @@ public class Driver {
 		ChromeOptions chromOptions = new ChromeOptions();
 		chromOptions.merge(dp);
 		String completeURL = "http://" + host + ":4444/wd/hub";
-		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromOptions);
+		driver = new RemoteWebDriver(new URL(completeURL), chromOptions);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);*/
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		
-		WebDriverManager.chromedriver().setup();
+		/*WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--headless");
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		options.merge(capabilities);
-		driver = new ChromeDriver(options);
+		driver = new ChromeDriver(options);*/
 		 
 
 	}
 
-	//@BeforeSuite
+	@BeforeSuite
 	public static void dockerStart() throws Exception, Exception {
 		startfile();
 	}
 
-	//@AfterSuite
+	@AfterSuite
 	public static void dockerStop() throws Exception, Exception {
 		stopfile();
 	}
