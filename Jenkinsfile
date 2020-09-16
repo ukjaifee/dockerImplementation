@@ -11,9 +11,17 @@ pipeline {
         stage('Build Image') {
             steps {
                 //sh
-                bat "java -cp selenium-docker.jar;selenium-docker-tests.jar;libs/* org.testng.TestNG search-module.xml"
+                bat "docker build -t jaifee/selenium-docker ."
             }
         }
-        
+        stage('Push Image') {
+            steps {
+			    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    //sh
+			        bat "docker login --username=${user} --password=${pass}"
+			        bat "docker push jaifee/selenium-docker:latest"
+			    }                           
+            }
+        }
     }
 }
