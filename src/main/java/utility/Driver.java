@@ -21,7 +21,6 @@ import static docker.StopDocker.*;
 public class Driver {
 
 	protected static WebDriver driver;
-	// protected RemoteWebDriver driver;
 	private DesiredCapabilities dp;
 
 	@BeforeTest
@@ -30,19 +29,18 @@ public class Driver {
 		dp = DesiredCapabilities.chrome();
 		String host = "localhost";
 
-		if (System.getProperty("Browser") != null && System.getProperty("BrowserName").equalsIgnoreCase("fireFox")) {
+		if (System.getProperty("BROWSER") != null && System.getProperty("BROWSER").equalsIgnoreCase("fireFox")) {
 			dp = DesiredCapabilities.firefox();
 		}
 
 		if (System.getProperty("HUB_HOST") != null) {
 			host = System.getProperty("HUB_HOST");
 		}
-		ChromeOptions chromOptions = new ChromeOptions();
-		chromOptions.merge(dp);
+		//ChromeOptions chromOptions = new ChromeOptions();
+		//chromOptions.merge(dp);
 		String completeURL = "http://" + host + ":4444/wd/hub";
-		driver = new RemoteWebDriver(new URL(completeURL), chromOptions);
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver = new RemoteWebDriver(new URL(completeURL), dp);
+		
 
 		
 		/*WebDriverManager.chromedriver().setup();
@@ -51,17 +49,19 @@ public class Driver {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		options.merge(capabilities);
-		driver = new ChromeDriver(options);*/
-		 
-
+		driver = new ChromeDriver(options);
+		WebDriverManager.chromedriver().setup();
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);*/
 	}
 
-	@BeforeSuite
+	//@BeforeSuite
 	public static void dockerStart() throws Exception, Exception {
 		startfile();
 	}
 
-	@AfterSuite
+	//@AfterSuite
 	public static void dockerStop() throws Exception, Exception {
 		stopfile();
 	}
