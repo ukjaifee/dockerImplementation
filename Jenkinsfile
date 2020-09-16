@@ -12,6 +12,7 @@ pipeline {
             steps {
                 //sh
                 bat "docker build -t selenium-docker -f  ."
+
             }
         }
         stage('Push Image') {
